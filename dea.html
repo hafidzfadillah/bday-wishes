@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+
+        .celebration {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .sender {
+            font-style: italic;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="card">
+        <h1>Happy Birthday! 🎉</h1>
+        <h2>Dear Dea,</h2>
+        <h3>On Your Special Day! 🎂</h3>
+        <p class="message">
+            Wishing you the happiest of birthdays! 
+            May your day be filled with joy, laughter, and wonderful surprises.
+            Here's to another year of great memories together! 
+        </p>
+        <p class="sender">With love,<br>Apizz</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // Add 3D tilt effect
+        const card = document.getElementById('card');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Auto trigger confetti
+        window.onload = function() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Add click event for more confetti
+        document.body.addEventListener('click', function(e) {
+            confetti({
+                particleCount: 50,
+                spread: 45,
+                origin: {
+                    x: e.clientX / window.innerWidth,
+                    y: e.clientY / window.innerHeight
+                }
+            });
+        });
+    </script>
+</body>
+</html>
